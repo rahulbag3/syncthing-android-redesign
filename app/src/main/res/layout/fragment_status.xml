@@ -18,7 +18,8 @@
         <com.nutomic.syncthingandroid.views.SegmentedButton
             android:id="@+id/forceStartStop"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="wrap_content"
+            android:minHeight="56dp"
             app:gradientColorOnStart="@color/primary"
             app:gradientColorOnEnd="@color/primary"
             app:gradientColorOffStart="@color/surface_container_high"
@@ -29,7 +30,8 @@
             app:strokeColor="@android:color/transparent"
             app:strokeWidth="0dp"
             app:cornerRadius="@dimen/tab_indicator_radius"
-            app:btnPaddingTop="@dimen/space_sm" />
+            app:btnPaddingTop="@dimen/space_md"
+            app:btnPaddingBottom="@dimen/space_md" />
 
     </FrameLayout>
 

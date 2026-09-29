@@ -16,6 +16,7 @@ import com.nutomic.syncthingandroid.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
@@ -49,6 +50,11 @@ public class SegmentedButton extends LinearLayout {
     private int mTextStyle;
     private int mBtnPaddingTop;
     private int mBtnPaddingBottom;
+
+    // Text colours derived from the luminance of the backgrounds the control
+    // actually paints, so labels always stay legible in both themes.
+    private int mTextOnColor;
+    private int mTextOffColor;
 
     private OnClickListenerSegmentedButton mOnClickListenerExternal;
 
@@ -89,6 +95,13 @@ public class SegmentedButton extends LinearLayout {
         buildDrawables(mColorOnStart, mColorOnEnd, mColorOffStart, mColorOffEnd,
                 mColorSelectedStart, mColorSelectedEnd, mCornerRadius, mColorStroke,
                 mStrokeWidth);
+
+        // Labels must contrast with the fill that is actually painted behind
+        // them, so derive the text colours from the background luminances
+        // instead of relying on a state-list that can fall out of sync with
+        // the imperatively swapped backgrounds.
+        mTextOnColor = contrastingTextColor(mColorOnStart != 0 ? mColorOnStart : mColorOnEnd);
+        mTextOffColor = contrastingTextColor(mColorOffStart != 0 ? mColorOffStart : mColorOffEnd);
 
         if (mButtonTitles.size() > 0) {
             _addButtons(new String[mButtonTitles.size()]);
@@ -144,7 +157,26 @@ public class SegmentedButton extends LinearLayout {
             // state-list text colours resolve correctly before the first
             // setPushedButtonIndex() call.
             button.setSelected(i == mSelectedButtonIndex);
+            // The selected segment is painted with the "off" fill and the
+            // unselected ones with the "on" fill, so bind the label colour to
+            // that same choice rather than to the selected state.
+            button.setTextColor(i == mSelectedButtonIndex ? mTextOffColor : mTextOnColor);
         }
+    }
+
+    /**
+     * Picks a near-white or near-black label, whichever reads better on the
+     * given background, using the WCAG relative-luminance formula.
+     */
+    private static int contrastingTextColor(int background) {
+        double r = Color.red(background) / 255.0;
+        double g = Color.green(background) / 255.0;
+        double b = Color.blue(background) / 255.0;
+        if (r <= 0.03928) r /= 12.92; else r = Math.pow((r + 0.055) / 1.055, 2.4);
+        if (g <= 0.03928) g /= 12.92; else g = Math.pow((g + 0.055) / 1.055, 2.4);
+        if (b <= 0.03928) b /= 12.92; else b = Math.pow((b + 0.055) / 1.055, 2.4);
+        double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        return luminance > 0.5 ? 0xFF1B1C1B : 0xFFFFFFFF;
     }
 
     private void buildDrawables(int colorOnStart,
@@ -316,6 +348,10 @@ public class SegmentedButton extends LinearLayout {
         // text colours (e.g. light text on the filled segment) to resolve.
         btnLast.setSelected(false);
         btnNext.setSelected(true);
+        // btnLast goes back to the "on" fill, btnNext keeps the "off" fill,
+        // so the label colours have to follow the same swap.
+        btnLast.setTextColor(mTextOnColor);
+        btnNext.setTextColor(mTextOffColor);
 
         mSelectedButtonIndex = btnNextIndex;
     }
