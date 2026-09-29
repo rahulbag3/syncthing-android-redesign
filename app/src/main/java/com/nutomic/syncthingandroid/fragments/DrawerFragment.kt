@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ExitToApp
 import androidx.compose.material.icons.automirrored.outlined.ViewQuilt
@@ -32,6 +35,7 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -46,6 +50,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -56,7 +61,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
@@ -151,7 +155,7 @@ private fun DrawerContent(
                 .fillMaxSize()
                 .padding(12.dp)
         ) {
-            DrawerHeader()
+            DrawerHeader(stServiceRunning)
 
             HorizontalDivider(Modifier.padding(horizontal = 16.dp))
 
@@ -337,7 +341,12 @@ private fun DrawerItem(
             label = label,
             onClick = onClick,
             selected = false,
+            shape = MaterialTheme.shapes.large,
+            colors = NavigationDrawerItemDefaults.colors(
+                unselectedContainerColor = Color.Transparent,
+            ),
             modifier = modifier
+                .padding(horizontal = 4.dp)
         )
     } else {
         val color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
@@ -345,14 +354,16 @@ private fun DrawerItem(
             color = Color.Transparent,
             modifier = modifier
                 .heightIn(min = 56.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp)
+                .clip(MaterialTheme.shapes.large),
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(start = 16.dp, end = 24.dp)
             ) {
                 CompositionLocalProvider(LocalContentColor provides color, content = icon)
-                Spacer(Modifier.width(12.dp))
+                Spacer(Modifier.width(16.dp))
                 CompositionLocalProvider(LocalContentColor provides color, content = label)
             }
         }
@@ -360,7 +371,7 @@ private fun DrawerItem(
 }
 
 @Composable
-private fun DrawerHeader() {
+private fun DrawerHeader(stServiceRunning: Boolean) {
     Surface(
         color = Color.Transparent,
         modifier = Modifier
@@ -369,22 +380,51 @@ private fun DrawerHeader() {
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 16.dp, end = 24.dp, bottom = 16.dp)
+            modifier = Modifier.padding(start = 20.dp, end = 24.dp, bottom = 20.dp, top = 8.dp)
         ) {
-            Image(
-                painter = painterResource(R.drawable.ic_monochrome_ui),
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                modifier = Modifier.size(32.dp),
-                contentScale = ContentScale.Fit
-            )
-            Spacer(Modifier.width(12.dp))
-            Text(
-                text = stringResource(R.string.app_name),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.primary,
-                fontWeight = FontWeight.SemiBold,
-            )
+            Surface(
+                color = MaterialTheme.colorScheme.primaryContainer,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.size(44.dp),
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_monochrome_ui),
+                        contentDescription = null,
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimaryContainer),
+                        modifier = Modifier.size(26.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
+            }
+            Spacer(Modifier.width(14.dp))
+            Column {
+                Text(
+                    text = stringResource(R.string.app_name),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Box(
+                        modifier = Modifier
+                            .size(8.dp)
+                            .clip(CircleShape)
+                            .background(
+                                if (stServiceRunning) MaterialTheme.colorScheme.primary
+                                else MaterialTheme.colorScheme.outline
+                            )
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Text(
+                        text = stringResource(
+                            if (stServiceRunning) R.string.syncthing_running
+                            else R.string.syncthing_not_running
+                        ),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
         }
     }
 }

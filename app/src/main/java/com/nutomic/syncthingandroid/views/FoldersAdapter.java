@@ -63,6 +63,7 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
         TextView lastItemFinishedTime;
         TextView conflicts;
         ProgressBar progressBar;
+        ImageView folderIcon;
         ImageView openFolder;
     }
 
@@ -86,6 +87,7 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
             holder.lastItemFinishedTime = convertView.findViewById(R.id.lastItemFinishedTime);
             holder.conflicts = convertView.findViewById(R.id.conflicts);
             holder.progressBar = convertView.findViewById(R.id.progressBar);
+            holder.folderIcon = convertView.findViewById(R.id.folderIcon);
             holder.openFolder = convertView.findViewById(R.id.openFolder);
 
             convertView.setTag(holder);
@@ -100,7 +102,8 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
         holder.revert.setOnClickListener(view -> { onClickRevert(view, folder); });
         holder.openFolder.setOnClickListener(view -> { FileUtils.openFolder(mContext, folder.path); });
 
-        // Update folder icon.
+        // Update the leading folder-type badge. The trailing button is a
+        // separate "open in file manager" action and keeps its own icon.
         int drawableId = R.drawable.baseline_folder_24;
         switch (folder.type) {
             case Constants.FOLDER_TYPE_RECEIVE_ENCRYPTED:
@@ -114,7 +117,7 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
                 break;
             default:
         }
-        holder.openFolder.setImageResource(drawableId);
+        holder.folderIcon.setImageResource(drawableId);
 
         updateFolderStatusView(holder, folder);
         return convertView;

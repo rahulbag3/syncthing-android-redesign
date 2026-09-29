@@ -60,19 +60,31 @@ fun SettingsScaffold(
             Modifier
         else
             Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             if (configuration.isTelevision) {
                 // Use normal top app bar because of low vertical space
                 TopAppBar(
-                    title = { Text(title) }
+                    title = { Text(title) },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    )
                     // TVs remotes have dedicated back buttons,
                     // so material guidelines suggest to not show the back button
                 )
             } else {
                 LargeTopAppBar(
+                    colors = TopAppBarDefaults.largeTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.background,
+                        scrolledContainerColor = MaterialTheme.colorScheme.background,
+                    ),
                     title = {
                         Column {
-                            Text(title)
+                            Text(
+                                text = title,
+                                style = MaterialTheme.typography.headlineSmall,
+                                color = MaterialTheme.colorScheme.onSurface,
+                            )
                             if (!description.isNullOrBlank() && heightScale > 0f) {
                                 Column(
                                     modifier = Modifier.alpha(subtitleAlpha)
@@ -84,7 +96,7 @@ fun SettingsScaffold(
                                             }
                                         }
                                 ) {
-                                    Spacer(Modifier.height(4.dp))
+                                    Spacer(Modifier.height(6.dp))
                                     Text(
                                         text = description,
                                         style = MaterialTheme.typography.bodyMedium,

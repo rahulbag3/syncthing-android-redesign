@@ -3,22 +3,27 @@
     <style name="Widget" />
     <style name="Widget.Syncthing" />
 
-    <!-- Widget styles -->
+    <!-- ============================================================
+         Widget styles
+         ============================================================ -->
     <eat-comment />
 
     <style name="Widget.Syncthing.ListView" parent="Widget.AppCompat.ListView">
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">@dimen/space_sm</item>
+        <item name="android:paddingBottom">88dp</item>
         <item name="android:clipToPadding">false</item>
         <item name="android:scrollbarStyle">outsideOverlay</item>
         <item name="divider">@android:color/transparent</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">@dimen/list_item_spacing</item>
+        <item name="android:listSelector">@drawable/list_row_selector</item>
     </style>
 
     <style name="Widget.Syncthing.TextView" />
 
     <style name="Widget.Syncthing.TextView.Label" parent="@android:style/Widget.TextView">
         <item name="android:background">?selectableItemBackground</item>
-        <item name="android:drawablePadding">32dp</item>
+        <item name="android:drawablePadding">@dimen/space_lg</item>
         <item name="android:gravity">start|center_vertical</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
         <item name="android:paddingLeft">@dimen/abc_action_bar_content_inset_material</item>
@@ -28,17 +33,17 @@
     <style name="Widget.Syncthing.TextView.Label.Details">
         <item name="android:textColor">?attr/editTextColor</item>
         <item name="android:minHeight">56dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">@dimen/space_sm</item>
+        <item name="android:paddingBottom">@dimen/space_sm</item>
     </style>
 
     <style name="Widget.Syncthing.TextView.Label.Details.WifiSsidList">
-        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingLeft">@dimen/space_xs</item>
         <item name="android:minHeight">48dp</item>
     </style>
 
     <style name="Widget.Syncthing.TextView.Label.Details.DeviceList">
-        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingLeft">@dimen/space_xs</item>
         <item name="android:minHeight">48dp</item>
     </style>
 
@@ -48,36 +53,99 @@
 
     <style name="Widget.Syncthing.DrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">false</item>
-        <item name="color">@android:color/white</item>
+        <item name="color">@color/on_surface</item>
     </style>
 
-    <!-- Text appearances -->
+    <!-- ============================================================
+         Text appearances
+         ============================================================ -->
     <eat-comment />
 
     <style name="TextAppearance.Syncthing.ListItemPrimary" parent="TextAppearance.AppCompat.Subhead">
         <item name="android:textColor">?android:textColorPrimary</item>
-    </style>
-
-    <style name="TextAppearance.Syncthing.ListItemSecondary" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:textColor">?android:textColorSecondary</item>
-    </style>
-
-    <style name="TextAppearance.Syncthing.ListItemSmall" parent="TextAppearance.AppCompat.Caption" />
-
-    <style name="Widget.Syncthing.TextView.SpinnerItem" parent="Widget.AppCompat.TextView.SpinnerItem">
-        <item name="android:textSize">18sp</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
-    </style>
-
-    <!-- SegmentedButton -->
-    <style name="TextViewStyleSegmentedButtonHeader">
-        <item name="android:textSize">13sp</item>
-        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TextAppearance.Syncthing.ListItemSecondary" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.Syncthing.ListItemSmall" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Widget.Syncthing.TextView.SpinnerItem" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingTop">@dimen/space_sm</item>
+        <item name="android:paddingBottom">@dimen/space_sm</item>
+    </style>
+
+    <!-- ============================================================
+         SegmentedButton
+         ============================================================ -->
+    <style name="TextViewStyleSegmentedButtonHeader">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/segmented_button_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
     <style name="progressBarBlue" parent="@style/Theme.AppCompat">
-        <item name="colorAccent">@color/text_blue</item>
+        <item name="colorAccent">@color/primary</item>
+    </style>
+    <!-- ============================================================
+         New design components
+         ============================================================ -->
+
+    <!-- Card surface used by folder/device rows -->
+    <style name="Widget.Syncthing.Card" parent="">
+        <item name="android:background">@drawable/bg_card</item>
+    </style>
+
+    <!-- Small uppercase label used inside rows -->
+    <style name="TextAppearance.Syncthing.Overline" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Pill container for the sync-state text -->
+    <style name="Widget.Syncthing.StatusChip" parent="">
+        <item name="android:background">@drawable/bg_status_chip</item>
+        <item name="android:paddingStart">@dimen/space_sm</item>
+        <item name="android:paddingEnd">@dimen/space_sm</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Tinted circular action button (open folder / open device) -->
+    <style name="Widget.Syncthing.IconButton" parent="">
+        <item name="android:background">@drawable/bg_icon_button</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:padding">@dimen/space_md</item>
+    </style>
+
+    <!-- Compact text button used for override / revert actions -->
+    <style name="Widget.Syncthing.TextButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingStart">@dimen/space_md</item>
+        <item name="android:paddingEnd">@dimen/space_md</item>
+        <item name="android:paddingTop">@dimen/space_sm</item>
+        <item name="android:paddingBottom">@dimen/space_sm</item>
+        <item name="android:drawablePadding">@dimen/space_xs</item>
     </style>
 </resources>
+

@@ -3,38 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:paddingStart="@dimen/screen_margin_horizontal"
+        android:paddingEnd="@dimen/screen_margin_horizontal"
+        android:paddingTop="@dimen/space_lg"
+        android:paddingBottom="@dimen/space_lg">
 
         <com.nutomic.syncthingandroid.views.SegmentedButton
             android:id="@+id/forceStartStop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:gradientColorOnStart="#00264d"
-            app:gradientColorOnEnd="#004d99"
-            app:gradientColorOffStart="#006bb3"
-            app:gradientColorOffEnd="#4db8ff"
-            app:gradientColorSelectedStart="#46d9ff"
-            app:gradientColorSelectedEnd="#b9e6ff"
+            android:layout_height="52dp"
+            app:gradientColorOnStart="@color/primary"
+            app:gradientColorOnEnd="@color/primary"
+            app:gradientColorOffStart="@color/surface_container_high"
+            app:gradientColorOffEnd="@color/surface_container_high"
+            app:gradientColorSelectedStart="@color/primary_dark"
+            app:gradientColorSelectedEnd="@color/primary_dark"
             app:textStyle="@style/TextViewStyleSegmentedButtonHeader"
-            app:strokeColor="#bbbbbb"
-            app:strokeWidth="3dp"
-            app:cornerRadius="10dp"
-            app:btnPaddingTop="10dp" />
+            app:strokeColor="@android:color/transparent"
+            app:strokeWidth="0dp"
+            app:cornerRadius="@dimen/tab_indicator_radius"
+            app:btnPaddingTop="@dimen/space_sm" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

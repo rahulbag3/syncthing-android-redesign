@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/primary_dark">
+    android:background="@color/background">
 
     <include layout="@layout/widget_toolbar" />
 
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        android:background="?android:windowBackground" />
+        android:background="@color/background" />
 
     <LinearLayout
         android:id="@+id/loading"
@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="?android:windowBackground">
+        android:background="@color/background">
 
         <ProgressBar
             android:layout_width="wrap_content"

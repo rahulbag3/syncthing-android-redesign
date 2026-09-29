@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Segmented control text: light on the filled "running" segment,
+     dark on the neutral segments. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:color="@color/on_primary" />
+    <item android:color="@color/on_surface" />
+</selector>

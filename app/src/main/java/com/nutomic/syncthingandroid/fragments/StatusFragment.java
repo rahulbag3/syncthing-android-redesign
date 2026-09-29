@@ -143,7 +143,7 @@ public class StatusFragment extends ListFragment implements SyncthingService.OnS
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1);
+        mAdapter = new ArrayAdapter(getActivity(), R.layout.item_status, android.R.id.text1);
         setListAdapter(mAdapter);
         setHasOptionsMenu(true);
         updateStatus();

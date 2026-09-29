@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- Folder row. Presented as a card: leading icon, title, path,
+     slim progress bar, metadata block and a trailing status pill. -->
 <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,18 +10,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
-    app:flow_horizontalGap="8dp"
-    android:paddingStart="@dimen/abc_action_bar_content_inset_material"
-    android:paddingEnd="@dimen/abc_action_bar_content_inset_material"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:background="@drawable/bg_card"
+    android:foreground="@drawable/list_row_selector"
+    android:focusable="true"
+    android:clickable="true"
+    android:padding="@dimen/list_item_padding"
+    app:flow_horizontalGap="@dimen/space_md"
+    app:flow_horizontalStyle="packed">
+
+    <ImageView
+        android:id="@+id/folderIcon"
+        android:layout_width="@dimen/list_item_icon_size"
+        android:layout_height="@dimen/list_item_icon_size"
+        android:background="@drawable/bg_status_chip"
+        android:padding="@dimen/space_sm"
+        android:importantForAccessibility="no"
+        android:src="@drawable/baseline_folder_24"
+        app:tint="@color/primary" />
 
     <RelativeLayout
         android:id="@+id/inner"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingEnd="8dp"
+        android:paddingStart="@dimen/space_md"
         tools:ignore="RtlSymmetry">
 
         <TextView
@@ -31,62 +45,58 @@
             android:maxLines="1"
             android:textAppearance="?textAppearanceListItemPrimary" />
 
+        <TextView
+            android:id="@+id/directory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label"
+            android:layout_marginTop="2dp"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textAppearance="?textAppearanceListItemSecondary" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label"
+            android:layout_below="@id/directory"
+            android:layout_marginTop="@dimen/space_sm"
             android:indeterminate="false"
             android:max="100"
+            android:minHeight="@dimen/progress_bar_height"
+            android:maxHeight="@dimen/progress_bar_height"
             android:progress="0"
-            android:ellipsize="end"
-            android:theme="@style/progressBarBlue" />
-
-        <TextView
-            android:id="@+id/directory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/progressBar"
-            android:ellipsize="end"
-            android:textAppearance="?textAppearanceListItemSecondary" />
+            android:progressDrawable="@drawable/progress_row" />
 
         <RelativeLayout
-                android:id="@+id/override_revert_container"
-                android:layout_below="@id/directory"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
+            android:id="@+id/override_revert_container"
+            android:layout_below="@id/progressBar"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/space_xs">
 
             <Button
                 android:id="@+id/override"
+                style="@style/Widget.Syncthing.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/override_changes"
-                android:paddingEnd="20dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingStart="20dp"
                 android:text="@string/override_changes"
-                app:drawableLeftCompat="@drawable/ic_cloud_upload_red_24"
+                android:textColor="@color/error"
                 app:drawableStartCompat="@drawable/ic_cloud_upload_red_24"
-                android:drawablePadding="5sp"
-                android:textSize="12sp" />
+                android:drawablePadding="@dimen/space_xs" />
 
             <Button
                 android:id="@+id/revert"
+                style="@style/Widget.Syncthing.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/revert_local_changes"
-                android:paddingEnd="20dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingStart="20dp"
                 android:text="@string/revert_local_changes"
-                app:drawableLeftCompat="@drawable/ic_cloud_download_red_24"
+                android:textColor="@color/error"
                 app:drawableStartCompat="@drawable/ic_cloud_download_red_24"
-                android:drawablePadding="5sp"
-                android:textSize="12sp" />
+                android:drawablePadding="@dimen/space_xs" />
 
         </RelativeLayout>
 
@@ -137,22 +147,20 @@
 
         <TextView
             android:id="@+id/state"
+            style="@style/Widget.Syncthing.StatusChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?textAppearanceListItemSmall"
             tools:ignore="RtlSymmetry" />
 
         <ImageButton
             android:id="@+id/openFolder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
+            style="@style/Widget.Syncthing.IconButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="@dimen/space_sm"
             android:contentDescription="@string/open_file_manager"
-            android:paddingBottom="8dp"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:paddingTop="8dp"
-            app:srcCompat="@drawable/baseline_folder_24" />
+            app:srcCompat="@drawable/baseline_folder_24"
+            app:tint="@color/on_surface_variant" />
     </LinearLayout>
 
 </LinearLayout>

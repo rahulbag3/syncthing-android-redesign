@@ -10,8 +10,17 @@
     <eat-comment/>
 
     <style name="Theme.Syncthing.Dialog" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="colorAccent">@color/light_blue</item>
-        <item name="android:windowBackground">@color/blue_grey</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
         <item name="android:textColor">?attr/colorControlNormal</item>
+    </style>
+
+    <!-- Dark variant of the toolbar overlay: the app bar is a dark surface now,
+         so the base overlay from values/themes.xml (which assumes a light bar)
+         has to be corrected. -->
+    <style name="ThemeOverlay.Syncthing.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowBackground">@null</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="colorControlNormal">@color/on_surface</item>
     </style>
 </resources>

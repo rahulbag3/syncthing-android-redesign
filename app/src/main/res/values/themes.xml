@@ -9,6 +9,10 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
 
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="colorControlHighlight">@color/primary_container</item>
+
         <item name="textAppearanceListItemPrimary">@style/TextAppearance.Syncthing.ListItemPrimary</item>
         <item name="textAppearanceListItemSecondary">@style/TextAppearance.Syncthing.ListItemSecondary</item>
         <item name="textAppearanceListItemSmall">@style/TextAppearance.Syncthing.ListItemSmall</item>
@@ -41,14 +45,18 @@
     <eat-comment/>
 
     <style name="Theme.Syncthing.Dialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-        <item name="colorAccent">@color/primary_dark</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
     </style>
 
     <!-- Toolbar themes -->
     <eat-comment/>
 
-    <style name="ThemeOverlay.Syncthing.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <!-- Toolbar now sits on a light surface instead of a filled brand bar,
+         so the overlay must not force white-on-dark text. -->
+    <style name="ThemeOverlay.Syncthing.Toolbar" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:windowBackground">@null</item>
-        <item name="colorAccent">@android:color/white</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="colorControlNormal">@color/on_surface</item>
     </style>
 </resources>

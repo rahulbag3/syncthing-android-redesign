@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="material_divider_inset">72dp</dimen>
-    <dimen name="toolbar_elevation">4dp</dimen>
 
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- ============================================================
+         Spacing scale - 4dp grid
+         ============================================================ -->
+    <dimen name="space_2xs">2dp</dimen>
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_sm">8dp</dimen>
+    <dimen name="space_md">12dp</dimen>
+    <dimen name="space_lg">16dp</dimen>
+    <dimen name="space_xl">24dp</dimen>
+    <dimen name="space_xxl">32dp</dimen>
+
+    <!-- Screen padding -->
+    <dimen name="screen_margin_horizontal">16dp</dimen>
+    <dimen name="screen_margin_vertical">12dp</dimen>
+
+    <!-- Cards and list rows -->
+    <dimen name="card_corner_radius">22dp</dimen>
+    <dimen name="card_elevation">0dp</dimen>
+    <dimen name="list_item_spacing">10dp</dimen>
+    <dimen name="list_item_padding">16dp</dimen>
+    <dimen name="list_item_icon_size">40dp</dimen>
+
+    <!-- Progress indicators -->
+    <dimen name="progress_bar_height">6dp</dimen>
+    <dimen name="progress_bar_height_large">8dp</dimen>
+
+    <!-- Tab strip -->
+    <dimen name="tab_indicator_height">36dp</dimen>
+    <dimen name="tab_indicator_radius">18dp</dimen>
+    <dimen name="tab_bar_padding_horizontal">14dp</dimen>
+    <dimen name="tab_bar_padding_vertical">8dp</dimen>
+
+    <!-- Legacy -->
+    <dimen name="material_divider_inset">72dp</dimen>
+    <dimen name="toolbar_elevation">0dp</dimen>
     <dimen name="dots_margin_bottom">20dp</dimen>
     <dimen name="welcome_title">18sp</dimen>
     <dimen name="slide_title">20sp</dimen>
     <dimen name="slide_desc">16sp</dimen>
     <dimen name="desc_padding">20dp</dimen>
     <dimen name="grant_button_padding">40dp</dimen>
+
 </resources>

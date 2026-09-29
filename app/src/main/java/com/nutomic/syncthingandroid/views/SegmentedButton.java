@@ -140,6 +140,10 @@ public class SegmentedButton extends LinearLayout {
                         1);
             addView(button, llp);
             button.setPadding(0, mBtnPaddingTop, 0, mBtnPaddingBottom);
+            // Keep the selected state in sync with the initial index so
+            // state-list text colours resolve correctly before the first
+            // setPushedButtonIndex() call.
+            button.setSelected(i == mSelectedButtonIndex);
         }
     }
 
@@ -233,11 +237,23 @@ public class SegmentedButton extends LinearLayout {
     }
 
     private GradientDrawable buildGradientDrawable(int colorStart, int colorEnd, int strokeWidth, int strokeColor) {
-        GradientDrawable gd = new GradientDrawable(
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[] { colorStart, colorEnd });
+        // The redesign uses flat fills (start == end) instead of gradients,
+        // so honour a single colour and only fall back to a real gradient
+        // when the two stops actually differ.
+        GradientDrawable gd;
+        if (colorStart == colorEnd || colorStart == 0 || colorEnd == 0) {
+            int flat = colorStart != 0 ? colorStart : colorEnd;
+            gd = new GradientDrawable();
+            gd.setColor(flat);
+        } else {
+            gd = new GradientDrawable(
+                    GradientDrawable.Orientation.TOP_BOTTOM,
+                    new int[] { colorStart, colorEnd });
+        }
         gd.setShape(GradientDrawable.RECTANGLE);
-        gd.setStroke(strokeWidth, strokeColor);
+        if (strokeWidth > 0) {
+            gd.setStroke(strokeWidth, strokeColor);
+        }
         return gd;
     }
 
@@ -294,6 +310,12 @@ public class SegmentedButton extends LinearLayout {
 
         btnLast.setPadding(0, mBtnPaddingTop, 0, mBtnPaddingBottom);
         btnNext.setPadding(0, mBtnPaddingTop, 0, mBtnPaddingBottom);
+
+        // The segment backgrounds are swapped imperatively above, so the
+        // selected state has to be tracked explicitly for state-list based
+        // text colours (e.g. light text on the filled segment) to resolve.
+        btnLast.setSelected(false);
+        btnNext.setSelected(true);
 
         mSelectedButtonIndex = btnNextIndex;
     }

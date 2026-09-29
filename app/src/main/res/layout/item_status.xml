@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Row used by the status tab list. -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_md"
+    android:layout_marginEnd="@dimen/space_md"
+    android:layout_marginTop="@dimen/space_sm"
+    android:background="@drawable/bg_card"
+    android:padding="@dimen/list_item_padding"
+    android:textColor="@color/on_surface"
+    android:textSize="14sp"
+    android:lineSpacingMultiplier="1.25" />
