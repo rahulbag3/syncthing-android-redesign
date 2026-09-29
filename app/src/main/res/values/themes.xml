@@ -4,7 +4,7 @@
     <!-- Activity themes -->
     <eat-comment/>
 
-    <style name="Theme.Syncthing.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme.Syncthing.Base.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
@@ -29,11 +29,28 @@
         <item name="alertDialogTheme">@style/Theme.Syncthing.Dialog</item>
 
         <item name="android:fitsSystemWindows">true</item>
+
+        <!-- The app draws edge-to-edge, so the system status bar sits on top
+             of the activity background. Pick icon colours that stay legible
+             against that surface instead of the default white. The bool is
+             false in values-night so dark mode keeps light icons. -->
+        <item name="android:windowLightStatusBar">@bool/light_system_bars</item>
     </style>
+
+    <!-- Base entry point. The values-v27 variant adds the dark-icon
+         navigation bar, which requires API 27. -->
+    <style name="Theme.Syncthing.Base" parent="Theme.Syncthing.Base.Base" />
 
     <style name="Theme.Syncthing" parent="Theme.Syncthing.Base">
         <!-- DialogTheme produces weird background on 4.4, so we only use it on API 21+ -->
         <item name="alertDialogTheme">@style/Theme.Syncthing.Dialog</item>
+    </style>
+
+    <!-- MainActivity keeps the filled brand bar behind the status bar, so it
+         needs the light system icons that the default light surface does not. -->
+    <style name="Theme.Syncthing.Main" parent="Theme.Syncthing.Base">
+        <item name="alertDialogTheme">@style/Theme.Syncthing.Dialog</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <!-- Button themes -->

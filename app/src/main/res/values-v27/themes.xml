@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- android:windowLightNavigationBar only exists from API 27, so the
+         dark-icon navigation bar lives in this version-qualified variant. -->
+    <style name="Theme.Syncthing.Base" parent="Theme.Syncthing.Base.Base">
+        <item name="android:windowLightNavigationBar">@bool/light_system_bars</item>
+    </style>
+</resources>
