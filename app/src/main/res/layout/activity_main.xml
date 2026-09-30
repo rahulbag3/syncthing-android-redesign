@@ -27,12 +27,16 @@
             app:tabGravity="fill"
             app:tabMode="fixed"
             app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicatorColor="@color/primary_container"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorAnimationMode="elastic"
             app:tabIndicatorHeight="@dimen/tab_indicator_height"
             app:tabRippleColor="@color/primary_container"
             app:tabSelectedTextColor="@color/on_primary_container"
-            app:tabTextColor="@color/on_surface_variant" />
+            app:tabTextColor="@color/on_surface_variant"
+            app:tabTextAppearance="@style/TextAppearance.Syncthing.TabLabel"
+            app:tabPaddingStart="@dimen/tab_label_inset"
+            app:tabPaddingEnd="@dimen/tab_label_inset" />
 
         <View
             android:layout_width="match_parent"

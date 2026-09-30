@@ -17,7 +17,7 @@
     <dimen name="screen_margin_vertical">12dp</dimen>
 
     <!-- Cards and list rows -->
-    <dimen name="card_corner_radius">22dp</dimen>
+    <dimen name="card_corner_radius">28dp</dimen>
     <dimen name="card_elevation">0dp</dimen>
     <dimen name="list_item_spacing">10dp</dimen>
     <dimen name="list_item_padding">16dp</dimen>
@@ -30,6 +30,10 @@
     <!-- Tab strip -->
     <dimen name="tab_indicator_height">36dp</dimen>
     <dimen name="tab_indicator_radius">18dp</dimen>
+    <!-- Inner breathing room between a tab label and the pill edge.
+         The pill hugs the measured text box, so this padding is what
+         keeps a label from sitting flush against the indicator. -->
+    <dimen name="tab_label_inset">18dp</dimen>
     <dimen name="tab_bar_padding_horizontal">14dp</dimen>
     <dimen name="tab_bar_padding_vertical">8dp</dimen>
 

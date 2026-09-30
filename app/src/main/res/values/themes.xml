@@ -4,18 +4,89 @@
     <!-- Activity themes -->
     <eat-comment/>
 
-    <style name="Theme.Syncthing.Base.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <!-- ============================================================
+         Material 3 Expressive
+         The previous parent was Theme.AppCompat.DayNight, i.e. Material 2.
+         That made the M3 colour tokens in colors.xml decorative: no
+         M3 shape scale, type scale or component styling was ever
+         applied. Theme.Material3 is the actual M3 contract.
+         ============================================================ -->
+    <style name="Theme.Syncthing.Base.Base" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
+
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorSecondaryContainer">@color/secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/on_secondary_container</item>
+
+        <item name="colorTertiary">@color/tertiary</item>
+        <item name="colorOnTertiary">@color/on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/on_tertiary_container</item>
+
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/on_error</item>
+        <item name="colorErrorContainer">@color/error_container</item>
+        <item name="colorOnErrorContainer">@color/on_error_container</item>
 
         <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">@color/on_background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+        <item name="colorOutline">@color/outline</item>
+        <item name="colorOutlineVariant">@color/outline_variant</item>
+        <item name="colorSurfaceContainer">@color/surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/surface_container_high</item>
+        <item name="colorSurfaceContainerLow">@color/surface_container_low</item>
+        <item name="colorSurfaceContainerHighest">@color/surface_container_highest</item>
+        <item name="colorSurfaceContainerLowest">@color/surface_container_lowest</item>
+        <item name="colorSurfaceInverse">@color/surface_inverse</item>
+        <item name="colorOnSurfaceInverse">@color/on_surface_inverse</item>
+
         <item name="colorControlActivated">@color/primary</item>
         <item name="colorControlHighlight">@color/primary_container</item>
+
+        <!-- Accent is an AppCompat attribute that M3 components do not
+             read; the harmonised amber is still used by the legacy
+             widgets. -->
+        <item name="colorAccent">@color/accent</item>
 
         <item name="textAppearanceListItemPrimary">@style/TextAppearance.Syncthing.ListItemPrimary</item>
         <item name="textAppearanceListItemSecondary">@style/TextAppearance.Syncthing.ListItemSecondary</item>
         <item name="textAppearanceListItemSmall">@style/TextAppearance.Syncthing.ListItemSmall</item>
+
+        <!-- ============================================================
+             M3 Expressive shape scale
+             The M3 baseline is deliberately timid (4/8/12/16/28dp).
+             Expressive pushes the large end much further and adds a
+             fully-rounded extra-large step used by cards and sheets.
+             ============================================================ -->
+        <item name="shapeAppearanceCornerExtraSmall">@style/ShapeAppearance.Syncthing.Corner.ExtraSmall</item>
+        <item name="shapeAppearanceCornerSmall">@style/ShapeAppearance.Syncthing.Corner.Small</item>
+        <item name="shapeAppearanceCornerMedium">@style/ShapeAppearance.Syncthing.Corner.Medium</item>
+        <item name="shapeAppearanceCornerLarge">@style/ShapeAppearance.Syncthing.Corner.Large</item>
+        <item name="shapeAppearanceCornerExtraLarge">@style/ShapeAppearance.Syncthing.Corner.ExtraLarge</item>
+
+        <!-- ============================================================
+             M3 type scale, used by every Material component.
+             Expressive leans on larger, heavier display/headline sizes.
+             ============================================================ -->
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.Syncthing.Display.Large</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.Syncthing.Headline.Medium</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.Syncthing.Title.Large</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.Syncthing.Body.Medium</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.Syncthing.Label.Large</item>
+
+        <!-- M3 Expressive uses spring-based motion, not the linear/eased
+             defaults. These are the expressive spatial springs. -->
+        <item name="motionSpringFastSpatial">@style/Transition.Syncthing.Spring.Spatial</item>
+        <item name="motionSpringDefaultSpatial">@style/Transition.Syncthing.Spring.Spatial</item>
 
         <item name="windowActionModeOverlay">true</item>
         <item name="android:listViewStyle">@style/Widget.Syncthing.ListView</item>
@@ -61,7 +132,7 @@
     <!-- Dialog themes -->
     <eat-comment/>
 
-    <style name="Theme.Syncthing.Dialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+    <style name="Theme.Syncthing.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="colorAccent">@color/primary</item>
         <item name="android:windowBackground">@drawable/bg_dialog</item>
     </style>

@@ -34,6 +34,11 @@
     <color name="surface">#0E1415</color>
     <color name="surface_container">#171F20</color>
     <color name="surface_container_high">#222B2B</color>
+    <color name="surface_container_lowest">#090F10</color>
+    <color name="surface_container_low">#0F1616</color>
+    <color name="surface_container_highest">#2C3536</color>
+    <color name="surface_inverse">#DEE3E3</color>
+    <color name="on_surface_inverse">#2E3131</color>
     <color name="on_surface">#DEE3E3</color>
     <color name="surface_variant">#3F4949</color>
     <color name="on_surface_variant">#BEC9C9</color>
