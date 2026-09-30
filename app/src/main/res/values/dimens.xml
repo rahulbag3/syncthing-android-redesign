@@ -54,6 +54,21 @@
 
         Note the tab's own view_main_tab.xml carries a further 2dp of padding
         on each side; that is inside the slot, the value here is outside it.
+
+        Because each tab is an equal share but its content is a different
+        width, the pill wrapping that content does not land on the same offset
+        in every slot. At 420dpi the three pills measured 110.5dp wide with
+        left gaps of 12.2 / 138.7 / 265.1dp, where even spacing would be
+        10.4 / 132.9 / 255.4dp. The outer two therefore sit several dp further
+        out than the middle one, which is what reads as the highlight being
+        misaligned from button to button.
+
+        This value cannot grow much further. The bar is 379.4dp wide in
+        portrait, so each tab slot is (379.4 - 2 x this) / 3 and the 110.5dp
+        pill has to fit inside it with room to spare or the label truncates.
+        At 8dp there is 10.6dp of slack; at 16dp there is only 5.3dp and
+        STATUS visibly cut down to "STATU". Most of the visual gap at the ends
+        therefore comes from nav_bar_corner_radius, not from here.
     -->
     <dimen name="tab_label_inset">8dp</dimen>
     <!--
@@ -63,12 +78,28 @@
         value plus the label insets all eat into the room the last tab has
         before the indicator starts getting cut off.
     -->
-    <dimen name="tab_bar_padding_horizontal">4dp</dimen>
+    <dimen name="tab_bar_padding_horizontal">8dp</dimen>
     <dimen name="tab_bar_padding_vertical">6dp</dimen>
 
     <!-- Bottom destination bar (M3 Expressive navigation bar) -->
     <dimen name="nav_bar_height">64dp</dimen>
-    <dimen name="nav_bar_corner_radius">32dp</dimen>
+    <!--
+        Corner radius of the bar's own ends.
+
+        This was 32dp, which on a 64dp-tall bar makes the container a
+        complete pill: the curve reaches its maximum inward sweep exactly
+        where the outermost tab pills sit. A 44dp pill is centred in the
+        64dp bar, so its top edge falls 10dp below the bar's top, and at
+        that height a 32dp radius has already curved 8.8dp inward from the
+        bounding box. The FOLDERS and STATUS pills therefore collided with
+        the bar's own curved end, which is what read as the highlight being
+        clipped on those two buttons while the middle one looked fine.
+
+        20dp keeps the container clearly rounded but pulls the curve back to
+        2.7dp at the pill's top edge, so the bar's edge reads as a straight
+        side next to the pill instead of swallowing its end.
+    -->
+    <dimen name="nav_bar_corner_radius">20dp</dimen>
     <dimen name="nav_bar_margin_horizontal">16dp</dimen>
     <dimen name="nav_bar_margin_bottom">12dp</dimen>
     <!--
