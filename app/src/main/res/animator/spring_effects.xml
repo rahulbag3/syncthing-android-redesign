@@ -1,0 +1,10 @@
+<!--
+    M3 Expressive - effects spring. A stiffer, quicker spring with a
+    smaller overshoot, for size and colour changes where a long settle
+    would feel sluggish.
+-->
+<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:controlX1="0.2"
+    android:controlY1="0.75"
+    android:controlX2="0.15"
+    android:controlY2="1.04" />

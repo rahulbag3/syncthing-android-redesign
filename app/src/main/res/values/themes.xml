@@ -83,10 +83,14 @@
         <item name="textAppearanceBodyMedium">@style/TextAppearance.Syncthing.Body.Medium</item>
         <item name="textAppearanceLabelLarge">@style/TextAppearance.Syncthing.Label.Large</item>
 
-        <!-- M3 Expressive uses spring-based motion, not the linear/eased
-             defaults. These are the expressive spatial springs. -->
-        <item name="motionSpringFastSpatial">@style/Transition.Syncthing.Spring.Spatial</item>
-        <item name="motionSpringDefaultSpatial">@style/Transition.Syncthing.Spring.Spatial</item>
+        <!-- M3 Expressive uses spring physics rather than fixed-duration
+             easing. The Views library has no spring token, so these
+             point at PathInterpolators whose control points overshoot
+             1.0 and settle, which reproduces the spring feel. -->
+        <item name="motionSpringFastSpatial">@animator/spring_fast_out_slow_in</item>
+        <item name="motionSpringDefaultSpatial">@animator/spring_fast_out_slow_in</item>
+        <item name="motionSpringFastEffects">@animator/spring_effects</item>
+        <item name="motionSpringDefaultEffects">@animator/spring_effects</item>
 
         <item name="windowActionModeOverlay">true</item>
         <item name="android:listViewStyle">@style/Widget.Syncthing.ListView</item>

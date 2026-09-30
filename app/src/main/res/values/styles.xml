@@ -5,30 +5,43 @@
 
     <!-- ============================================================
          M3 Expressive shape scale
-         M3 baseline is 4/8/12/16/28dp. Expressive exaggerates the large
-         end so cards, sheets and the FAB read as soft, confident shapes
-         rather than flat rectangles.
+         Official M3 tokens are 4/8/12/16/28dp plus a 50% "full"
+         step. Expressive keeps that ladder but leans harder on the
+         large end, and adds the full/pill step that the baseline
+         leaves implicit.
          ============================================================ -->
     <eat-comment />
 
     <style name="ShapeAppearance.Syncthing.Corner.ExtraSmall" parent="ShapeAppearance.Material3.Corner.ExtraSmall">
-        <item name="cornerSize">8dp</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">6dp</item>
     </style>
 
     <style name="ShapeAppearance.Syncthing.Corner.Small" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerFamily">rounded</item>
         <item name="cornerSize">12dp</item>
     </style>
 
     <style name="ShapeAppearance.Syncthing.Corner.Medium" parent="ShapeAppearance.Material3.Corner.Medium">
-        <item name="cornerSize">20dp</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">18dp</item>
     </style>
 
     <style name="ShapeAppearance.Syncthing.Corner.Large" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamily">rounded</item>
         <item name="cornerSize">28dp</item>
     </style>
 
     <style name="ShapeAppearance.Syncthing.Corner.ExtraLarge" parent="ShapeAppearance.Material3.Corner.ExtraLarge">
+        <item name="cornerFamily">rounded</item>
         <item name="cornerSize">36dp</item>
+    </style>
+
+    <!-- The "full" step of the M3 token scale: 50% radius, for pills
+         and chips whose ends should be completely round. -->
+    <style name="ShapeAppearance.Syncthing.Corner.Full" parent="ShapeAppearance.Material3.Corner.Full">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
     <!-- ============================================================
@@ -67,20 +80,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!-- ============================================================
-         Expressive motion: spring, not linear
-         NOTE: Transition.Material3.Spring does not exist in the Views
-         library and the springDampingRatio/springStiffness attrs are
-         Compose-only, so this is a plain duration-based spatial curve.
-         The spring feel is applied on the views that actually animate
-         (see the tab indicator) rather than here.
-         ============================================================ -->
+    <!-- Expressive motion lives in res/anim as PathInterpolators with an
+         overshooting control point, wired to the theme's spring motion
+         tokens. A style cannot hold spring physics in the Views
+         library, so there is deliberately no transition style here. -->
     <eat-comment />
-
-    <style name="Transition.Syncthing.Spring.Spatial" parent="">
-        <item name="android:duration">450</item>
-        <item name="android:interpolator">@android:interpolator/fast_out_slow_in</item>
-    </style>
 
     <!-- ============================================================
          Widget styles
@@ -198,6 +202,15 @@
     <!-- ============================================================
          New design components
          ============================================================ -->
+
+    <!-- Expressive FAB: a mini FAB is 40dp, so a 16dp radius reads as a
+         soft rounded square rather than a circle. This is the M3
+         "morphing shape" idea in static form; the fully-rounded
+         circle default is the other half of the morph. -->
+    <style name="ShapeAppearanceOverlay.Syncthing.Fab" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
 
     <!-- Card surface used by folder/device rows -->
     <style name="Widget.Syncthing.Card" parent="">

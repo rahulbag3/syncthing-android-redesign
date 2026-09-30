@@ -18,6 +18,9 @@
 
     <!-- Cards and list rows -->
     <dimen name="card_corner_radius">28dp</dimen>
+    <!-- Expressive presses cards toward the large shape step so list
+         rows read as soft containers rather than flat rows. -->
+    <dimen name="card_stroke_width">0dp</dimen>
     <dimen name="card_elevation">0dp</dimen>
     <dimen name="list_item_spacing">10dp</dimen>
     <dimen name="list_item_padding">16dp</dimen>

@@ -1,0 +1,13 @@
+<!--
+    M3 Expressive - spatial spring.
+    The Views library has no spring token (springDampingRatio and
+    springStiffness are Compose-only), so the spring feel is expressed
+    with a PathInterpolator whose control points overshoot 1.0 and then
+    settle. This reproduces the under-damped spring curve well enough
+    that transitions read as physical rather than duration-driven.
+-->
+<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:controlX1="0.18"
+    android:controlY1="0.68"
+    android:controlX2="0.13"
+    android:controlY2="1.08" />
