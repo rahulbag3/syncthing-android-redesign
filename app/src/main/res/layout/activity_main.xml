@@ -62,7 +62,8 @@
             android:layout_marginEnd="@dimen/nav_bar_margin_horizontal"
             android:layout_marginBottom="@dimen/nav_bar_margin_bottom"
             android:background="@drawable/bg_nav_bar"
-            android:elevation="6dp">
+            android:elevation="6dp"
+            android:layout_gravity="center_horizontal">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabContainer"
@@ -79,6 +80,7 @@
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorAnimationMode="elastic"
                 app:tabIndicatorHeight="@dimen/tab_indicator_height"
+                app:tabIndicatorGravity="center"
                 app:tabRippleColor="@null"
                 app:tabSelectedTextColor="@color/on_primary_container"
                 app:tabTextColor="@color/on_surface_variant"

@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -442,6 +443,8 @@ public class MainActivity extends SyncthingActivity
     private void applyNavBarInsets() {
         View navBar = findViewById(R.id.navBarContainer);
         int baseMargin = getResources().getDimensionPixelSize(R.dimen.nav_bar_margin_bottom);
+        int sideMargin = getResources().getDimensionPixelSize(R.dimen.nav_bar_margin_horizontal);
+        int maxWidth = getResources().getDimensionPixelSize(R.dimen.nav_bar_max_width);
         ViewCompat.setOnApplyWindowInsetsListener(navBar, (view, insets) -> {
             Insets bars = insets.getInsets(
                     WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
@@ -449,8 +452,39 @@ public class MainActivity extends SyncthingActivity
                     (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             params.bottomMargin = baseMargin + bars.bottom;
             view.setLayoutParams(params);
+            clampNavBarWidth(view, sideMargin, maxWidth);
             return insets;
         });
+        // The inset pass runs before the parent has been measured, so the width
+        // cap is re-applied on every layout pass. Without it the bar keeps the
+        // match_parent width from XML and stretches across landscape screens,
+        // leaving the three destinations clustered in the middle.
+        navBar.addOnLayoutChangeListener((view, l, t, r, b, ol, ot, or_, ob) ->
+                clampNavBarWidth(view, sideMargin, maxWidth));
+    }
+
+    /**
+     * Caps the floating bar so it never grows past {@code maxWidth} and stays
+     * horizontally centred. {@code android:maxWidth} cannot be used because it
+     * is a TextView attribute which FrameLayout ignores.
+     */
+    private void clampNavBarWidth(View navBar, int sideMargin, int maxWidth) {
+        ViewParent parent = navBar.getParent();
+        if (!(parent instanceof View)) {
+            return;
+        }
+        int available = ((View) parent).getWidth() - sideMargin * 2;
+        if (available <= 0) {
+            return;
+        }
+        int target = Math.min(available, maxWidth);
+        ViewGroup.MarginLayoutParams params =
+                (ViewGroup.MarginLayoutParams) navBar.getLayoutParams();
+        if (params.width == target) {
+            return;
+        }
+        params.width = target;
+        navBar.setLayoutParams(params);
     }
 
 

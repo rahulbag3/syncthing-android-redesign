@@ -54,6 +54,12 @@
     <dimen name="nav_bar_corner_radius">32dp</dimen>
     <dimen name="nav_bar_margin_horizontal">16dp</dimen>
     <dimen name="nav_bar_margin_bottom">12dp</dimen>
+    <!--
+        Stops the bar stretching the full width of a landscape screen.
+        Without a cap it spans 2187px on a 2400px-wide display, leaving the
+        three destinations huddled in the middle of a very long container.
+    -->
+    <dimen name="nav_bar_max_width">420dp</dimen>
 
     <!-- Legacy -->
     <dimen name="material_divider_inset">72dp</dimen>
