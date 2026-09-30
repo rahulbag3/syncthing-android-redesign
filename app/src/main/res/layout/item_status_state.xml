@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    First row of the status tab: the current service state.
+
+    This is the one status row that carries a live indicator. A plain
+    sentence such as "Syncthing is running." is a snapshot, and it gives no
+    hint that the app is still checking. The leading dot is animated by
+    StatusFragment so the row reads as actively being evaluated.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginStart="@dimen/space_md"
+    android:layout_marginEnd="@dimen/space_md"
+    android:layout_marginTop="@dimen/space_sm"
+    android:background="@drawable/bg_card"
+    android:padding="@dimen/list_item_padding">
+
+    <View
+        android:id="@+id/statusIndicator"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="@dimen/space_md"
+        android:background="@drawable/status_dot_active" />
+
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/on_surface"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:maxLines="2"
+        tools:text="Syncthing is running." />
+
+</LinearLayout>

@@ -2,8 +2,10 @@ package com.nutomic.syncthingandroid.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.animation.ValueAnimator;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.ListFragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.google.common.base.Optional;
 import com.nutomic.syncthingandroid.R;
@@ -69,6 +72,10 @@ public class StatusFragment extends ListFragment implements SyncthingService.OnS
     private Boolean mLastVisibleToUser = false;
     private SegmentedButton btnForceStartStop;
     /**
+     * Breathing animation on the service-state dot of the first status row.
+     */
+    private ValueAnimator mIndicatorPulse;
+    /**
      * Object that must be locked upon accessing the status holders.
      */
     private final Object mStatusHolderLock = new Object();
@@ -97,8 +104,11 @@ public class StatusFragment extends ListFragment implements SyncthingService.OnS
             // User switched to the current tab, start handler.
             startRestApiQueryHandler();
         } else {
-            // User switched away to another tab, stop handler.
+            // User switched away to another tab, stop handler. The dot must
+            // stop breathing too, otherwise it keeps invalidating an
+            // off-screen view for as long as the app is in the foreground.
             stopRestApiQueryHandler();
+            stopIndicatorPulse();
         }
         mLastVisibleToUser = isVisibleToUser;
     }
@@ -143,7 +153,7 @@ public class StatusFragment extends ListFragment implements SyncthingService.OnS
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAdapter = new ArrayAdapter(getActivity(), R.layout.item_status, android.R.id.text1);
+        mAdapter = new StatusAdapter(getActivity());
         setListAdapter(mAdapter);
         setHasOptionsMenu(true);
         updateStatus();
@@ -376,5 +386,146 @@ public class StatusFragment extends ListFragment implements SyncthingService.OnS
         if (ENABLE_VERBOSE_LOG) {
             Log.v(TAG, logMessage);
         }
+    }
+
+    /**
+     * Returns the colour token that should represent the current state.
+     */
+    private int getStateDotRes() {
+        switch (mServiceState) {
+            case ACTIVE:
+                return R.drawable.status_dot_active;
+            case INIT:
+            case STARTING:
+                return R.drawable.status_dot_starting;
+            default:
+                return R.drawable.status_dot_stopped;
+        }
+    }
+
+    /**
+     * Whether the dot should breathe for the current state.
+     *
+     * A stopped service is not live, so its dot stays still; a flat grey dot
+     * is the clearest signal that nothing is happening.
+     */
+    private boolean isStateLive() {
+        return mServiceState == SyncthingService.State.ACTIVE
+                || mServiceState == SyncthingService.State.STARTING
+                || mServiceState == SyncthingService.State.INIT;
+    }
+
+    /**
+     * Cancels the breathing pulse, if one is running.
+     */
+    private void stopIndicatorPulse() {
+        if (mIndicatorPulse != null) {
+            mIndicatorPulse.cancel();
+            mIndicatorPulse = null;
+        }
+    }
+
+    /**
+     * Adapter for the status list.
+     *
+     * The first row is the service-state line, which is rendered with its own
+     * layout so it can carry a live indicator dot. The remaining rows are
+     * plain text, exactly as before.
+     */
+    private class StatusAdapter extends ArrayAdapter<String> {
+
+        private final LayoutInflater mInflater;
+
+        StatusAdapter(Context context) {
+            super(context, R.layout.item_status, android.R.id.text1);
+            mInflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position == 0 ? 0 : 1;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 2;
+        }
+
+        @Override
+        public boolean areAllItemsEnabled() {
+            return false;
+        }
+
+        @Override
+        public boolean isEnabled(int position) {
+            return position != 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (getItemViewType(position) == 0) {
+                View view = convertView;
+                if (view == null) {
+                    view = mInflater.inflate(R.layout.item_status_state, parent, false);
+                }
+                TextView text = view.findViewById(android.R.id.text1);
+                text.setText(getItem(position));
+
+                View dot = view.findViewById(R.id.statusIndicator);
+                dot.setBackgroundResource(getStateDotRes());
+                if (isStateLive() && getUserVisibleHint()) {
+                    startIndicatorPulse(dot);
+                } else {
+                    // Recycled rows keep their last scale, so reset it
+                    // whenever the dot is not going to be animated.
+                    stopIndicatorPulse();
+                    dot.setScaleX(1f);
+                    dot.setScaleY(1f);
+                }
+                return view;
+            }
+
+            View view = convertView;
+            if (view == null) {
+                view = mInflater.inflate(R.layout.item_status, parent, false);
+            }
+            TextView text = view.findViewById(android.R.id.text1);
+            text.setText(getItem(position));
+            return view;
+        }
+    }
+
+    /**
+     * Gives the state dot a slow breathing pulse.
+     *
+     * The row is rebuilt on every REST poll, so the animation is restarted
+     * from the beginning each time rather than kept running. Any previous
+     * animator is cancelled first, otherwise recycled rows would accumulate
+     * animators and keep drawing after the fragment is gone.
+     */
+    private void startIndicatorPulse(View dot) {
+        stopIndicatorPulse();
+        // One float driving both axes: the dot is a circle, and animating
+        // only the horizontal scale squashes it into an oval for half of
+        // every cycle.
+        mIndicatorPulse = ValueAnimator.ofFloat(1f, 1.3f);
+        mIndicatorPulse.setDuration(700);
+        mIndicatorPulse.setRepeatMode(ValueAnimator.REVERSE);
+        mIndicatorPulse.setRepeatCount(ValueAnimator.INFINITE);
+        mIndicatorPulse.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float scale = (Float) animation.getAnimatedValue();
+                dot.setScaleX(scale);
+                dot.setScaleY(scale);
+            }
+        });
+        mIndicatorPulse.start();
+    }
+
+    @Override
+    public void onDestroyView() {
+        stopIndicatorPulse();
+        super.onDestroyView();
     }
 }

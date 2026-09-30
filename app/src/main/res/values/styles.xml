@@ -56,28 +56,40 @@
     <eat-comment />
 
     <style name="TextAppearance.Syncthing.Display.Large" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">52sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:lineSpacingMultiplier">1.05</item>
     </style>
 
     <style name="TextAppearance.Syncthing.Headline.Medium" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">28sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
     </style>
 
     <style name="TextAppearance.Syncthing.Title.Large" parent="TextAppearance.AppCompat.Title">
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">-0.015</item>
     </style>
 
     <style name="TextAppearance.Syncthing.Body.Medium" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineSpacingMultiplier">1.35</item>
     </style>
 
     <style name="TextAppearance.Syncthing.Label.Large" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.01</item>
     </style>
 
     <!-- Expressive motion lives in res/anim as PathInterpolators with an
@@ -188,9 +200,10 @@
          padding item here would be silently ignored.
          ============================================================ -->
     <style name="TextAppearance.Syncthing.TabLabel" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:letterSpacing">0.02</item>
+        <item name="android:letterSpacing">0.05</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:maxLines">1</item>
         <item name="android:includeFontPadding">false</item>
@@ -210,6 +223,34 @@
     <style name="ShapeAppearanceOverlay.Syncthing.Fab" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>
+    </style>
+
+    <!--
+        Toolbar service-state pill: a coloured dot plus the state name.
+
+        The radio button glyph itself is removed, because the dot is supplied
+        as a compound drawable instead. Keeping android:button="@null" is what
+        stops the old circle from being drawn underneath the new dot.
+    -->
+    <style name="Widget.Syncthing.StatePill" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:background">@drawable/bg_status_indicator</item>
+        <item name="android:button">@null</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">@dimen/space_sm</item>
+        <item name="android:paddingStart">@dimen/space_md</item>
+        <item name="android:paddingEnd">@dimen/space_md</item>
+        <item name="android:paddingTop">@dimen/space_xs</item>
+        <item name="android:paddingBottom">@dimen/space_xs</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <!-- Card surface used by folder/device rows -->

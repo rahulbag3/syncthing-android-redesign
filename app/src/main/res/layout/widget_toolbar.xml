@@ -15,40 +15,44 @@
     android:theme="@style/ThemeOverlay.Syncthing.Toolbar"
     android:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
+    <!--
+        Service-state indicator.
+
+        This used to be three overlapping radio buttons whose only visible
+        part was a small coloured circle. A bare dot is ambiguous without
+        its surrounding context, so the state is now a pill: a coloured dot
+        paired with the state name, on the same rounded shape language as
+        the bottom destination bar.
+
+        The three views stay as radio buttons rather than plain TextViews so
+        that MainActivity can keep selecting between them by ID, and the
+        selection is still driven purely by visibility (they never carry a
+        checked state of their own).
+    -->
     <RelativeLayout
         android:id="@+id/topRel1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical">
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/btnActive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:focusable="false"
-            android:clickable="false"
-            android:visibility="gone"
-            app:buttonTint="@color/state_active"/>
+            style="@style/Widget.Syncthing.StatePill"
+            android:drawableStart="@drawable/status_dot_active"
+            android:text="@string/state_synced" />
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/btnStarting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:focusable="false"
-            android:clickable="false"
-            android:visibility="gone"
-            app:buttonTint="@color/state_starting"/>
+            style="@style/Widget.Syncthing.StatePill"
+            android:drawableStart="@drawable/status_dot_starting"
+            android:text="@string/state_starting" />
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/btnDisabled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:focusable="false"
-            android:clickable="false"
-            android:visibility="gone"
-            app:buttonTint="@color/state_stopped"/>
+            style="@style/Widget.Syncthing.StatePill"
+            android:drawableStart="@drawable/status_dot_stopped"
+            android:text="@string/state_stopped" />
 
     </RelativeLayout>
 

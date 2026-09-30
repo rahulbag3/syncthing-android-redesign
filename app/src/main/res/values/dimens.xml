@@ -37,16 +37,33 @@
     <dimen name="tab_indicator_height">44dp</dimen>
     <dimen name="tab_indicator_radius">22dp</dimen>
     <!--
-        Inner breathing room between a tab label and the pill edge. The pill
-        hugs the measured text box, so this padding is what keeps a label
-        from sitting flush against the indicator.
+        Inner breathing room between a tab label and the pill edge, applied
+        as the TabLayout's tabPaddingStart/tabPaddingEnd.
 
-        Kept small: in the bottom bar each destination only gets about
-        117dp at 411dp wide, and icon plus label plus this inset has to fit
-        inside it or the label gets ellipsised.
+        These are what keep the selected pill off the bar's own edge. The bar
+        has a 32dp corner radius, so its rounded end curves inward well
+        before the bar ends; a pill that runs right up to the tab boundary
+        ends up sitting on that curve and reads as clipped even though it is
+        drawn completely.
+
+        They are safe to grow because the bar uses tabGravity="fill", so each
+        tab keeps an equal share of the bar and the insets come out of that
+        share rather than pushing the row wider. Measured in portrait, icon
+        plus label plus these insets is ~109dp against a ~126dp slot, so there
+        is still headroom before the three tabs would overflow.
+
+        Note the tab's own view_main_tab.xml carries a further 2dp of padding
+        on each side; that is inside the slot, the value here is outside it.
     -->
-    <dimen name="tab_label_inset">6dp</dimen>
-    <dimen name="tab_bar_padding_horizontal">10dp</dimen>
+    <dimen name="tab_label_inset">8dp</dimen>
+    <!--
+        Outer inset of the TabLayout inside the rounded bar. Counts against
+        the same budget as tab_label_inset: TabLayout measures the tabs from
+        their content and only then clips to its own padded box, so this
+        value plus the label insets all eat into the room the last tab has
+        before the indicator starts getting cut off.
+    -->
+    <dimen name="tab_bar_padding_horizontal">4dp</dimen>
     <dimen name="tab_bar_padding_vertical">6dp</dimen>
 
     <!-- Bottom destination bar (M3 Expressive navigation bar) -->
@@ -58,8 +75,15 @@
         Stops the bar stretching the full width of a landscape screen.
         Without a cap it spans 2187px on a 2400px-wide display, leaving the
         three destinations huddled in the middle of a very long container.
+
+        The value also has to be wide enough to hold the tabs. Measured in
+        landscape the three tabs need ~1045px of content, and anything
+        narrower makes the last tab overflow the TabLayout content box. The
+        indicator is then clipped by that box and the pill's right end draws
+        as a flat vertical edge instead of a rounded cap. 440dp = 1155px,
+        which leaves ~67px of slack for the tabs.
     -->
-    <dimen name="nav_bar_max_width">420dp</dimen>
+    <dimen name="nav_bar_max_width">440dp</dimen>
 
     <!-- Legacy -->
     <dimen name="material_divider_inset">72dp</dimen>

@@ -237,6 +237,10 @@
     <string name="syncthing_running">Syncthing is running.</string>
     <string name="syncthing_not_running">Syncthing is not running.</string>
     <string name="syncthing_has_crashed">Syncthing has crashed.</string>
+    <!-- Toolbar service-state pill labels -->
+    <string name="state_synced">Synced</string>
+    <string name="state_starting">Starting</string>
+    <string name="state_stopped">Stopped</string>
 
     <!-- DrawerFragment -->
 

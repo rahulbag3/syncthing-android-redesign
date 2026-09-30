@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Leading dot for the "stopped" toolbar status pill. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/state_stopped" />
+    <size android:width="8dp" android:height="8dp" />
+</shape>

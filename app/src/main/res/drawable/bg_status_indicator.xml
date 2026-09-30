@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Pill container for the toolbar service-state indicator.
+
+    The state is shown as a labelled pill (coloured dot + word) instead of
+    the bare radio circle the app used previously. A lone coloured dot has
+    to be decoded from context; pairing it with the state name means the
+    toolbar is readable without relying on colour alone, and the pill has
+    room to sit on the same 4dp shape grid as the rest of the redesign.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/surface_variant" />
+    <corners android:radius="100dp" />
+</shape>

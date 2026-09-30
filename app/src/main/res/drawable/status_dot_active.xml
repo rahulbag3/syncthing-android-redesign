@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Filled dot used as the leading mark of the toolbar status pill.
+    Sized in code via the compound drawable bounds of the pill.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/state_active" />
+    <!--
+        A shape drawable has no intrinsic size, so without this the dot is
+        measured as 0x0 when used as a compound drawable on the toolbar
+        status pill and silently disappears.
+    -->
+    <size android:width="8dp" android:height="8dp" />
+</shape>
