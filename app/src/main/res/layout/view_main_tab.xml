@@ -1,0 +1,48 @@
+<!--
+    Custom tab content for the main destination strip.
+
+    TabLayout stacks a tab icon above its label, so the selection pill
+    only ever encloses the label and the icon is left stranded outside
+    it. The M3 Expressive navigation bar instead shows icon and label
+    side by side inside the active pill, so each tab is inflated from
+    this layout: a horizontal icon+label row that the indicator can
+    measure as a single unit.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp">
+
+    <ImageView
+        android:id="@+id/tab_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="6dp"
+        android:importantForAccessibility="no"
+        tools:src="@drawable/baseline_folder_24" />
+
+    <!--
+        The label auto-shrinks down to 10sp instead of ellipsising. In a
+        bottom bar three destinations share the width, so at large font
+        scales a fixed size label gets cut off mid-word.
+    -->
+    <TextView
+        android:id="@+id/tab_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.Syncthing.TabLabel"
+        android:maxLines="1"
+        android:includeFontPadding="false"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeMaxTextSize="14sp"
+        app:autoSizeStepGranularity="1sp"
+        tools:text="FOLDERS" />
+</LinearLayout>

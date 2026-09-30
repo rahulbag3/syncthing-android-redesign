@@ -13,39 +13,10 @@
 
         <include layout="@layout/widget_toolbar" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/surface"
-            android:elevation="0dp"
-            android:theme="@style/ThemeOverlay.Syncthing.Toolbar"
-            android:paddingStart="@dimen/tab_bar_padding_horizontal"
-            android:paddingEnd="@dimen/tab_bar_padding_horizontal"
-            android:paddingTop="@dimen/tab_bar_padding_vertical"
-            android:paddingBottom="@dimen/tab_bar_padding_vertical"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
-            app:tabIndicator="@drawable/tab_indicator"
-            app:tabIndicatorColor="@color/primary_container"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorAnimationMode="elastic"
-            app:tabIndicatorHeight="@dimen/tab_indicator_height"
-            app:tabRippleColor="@color/primary_container"
-            app:tabSelectedTextColor="@color/on_primary_container"
-            app:tabTextColor="@color/on_surface_variant"
-            app:tabTextAppearance="@style/TextAppearance.Syncthing.TabLabel"
-            app:tabPaddingStart="@dimen/tab_label_inset"
-            app:tabPaddingEnd="@dimen/tab_label_inset" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider" />
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/pager"
@@ -59,7 +30,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/screen_margin_horizontal"
-                android:layout_marginBottom="@dimen/screen_margin_horizontal"
+                android:layout_marginBottom="@dimen/screen_margin_vertical"
                 android:contentDescription="@string/exit"
                 app:srcCompat="@drawable/ic_outline_exit_to_app_24"
                 app:backgroundTint="@color/primary_container"
@@ -69,6 +40,53 @@
                 app:elevation="3dp" />
 
         </RelativeLayout>
+
+        <!--
+            Bottom destination bar, following the M3 Expressive navigation
+            bar: a floating rounded container holding the active pill.
+
+            The bar sits outside the scrollable content so the destination
+            switcher stays reachable, and it is inset from the screen edges
+            with a full corner radius so it reads as a distinct surface.
+
+            tabRippleColor is deliberately cleared. The default ripple is
+            drawn as a rectangle that clips to the TabLayout bounds, which
+            does not match the rounded indicator and flashes outside the
+            pill. The elastic indicator animation carries the transition.
+        -->
+        <FrameLayout
+            android:id="@+id/navBarContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/nav_bar_margin_horizontal"
+            android:layout_marginEnd="@dimen/nav_bar_margin_horizontal"
+            android:layout_marginBottom="@dimen/nav_bar_margin_bottom"
+            android:background="@drawable/bg_nav_bar"
+            android:elevation="6dp">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_bar_height"
+                android:background="@null"
+                android:theme="@style/ThemeOverlay.Syncthing.Toolbar"
+                android:paddingStart="@dimen/tab_bar_padding_horizontal"
+                android:paddingEnd="@dimen/tab_bar_padding_horizontal"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                app:tabIndicator="@drawable/tab_indicator"
+                app:tabIndicatorColor="@color/primary_container"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorAnimationMode="elastic"
+                app:tabIndicatorHeight="@dimen/tab_indicator_height"
+                app:tabRippleColor="@null"
+                app:tabSelectedTextColor="@color/on_primary_container"
+                app:tabTextColor="@color/on_surface_variant"
+                app:tabTextAppearance="@style/TextAppearance.Syncthing.TabLabel"
+                app:tabPaddingStart="@dimen/tab_label_inset"
+                app:tabPaddingEnd="@dimen/tab_label_inset" />
+
+        </FrameLayout>
 
     </LinearLayout>
 

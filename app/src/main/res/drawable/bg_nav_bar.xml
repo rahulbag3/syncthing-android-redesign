@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Floating container for the bottom destination bar.
+
+    The bar is inset from the screen edges and fully rounded, following the
+    M3 Expressive navigation bar. The active pill inside is a separate,
+    smaller shape drawn by the tab indicator.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/surface_container" />
+    <corners android:radius="@dimen/nav_bar_corner_radius" />
+</shape>

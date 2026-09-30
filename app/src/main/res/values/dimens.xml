@@ -31,14 +31,29 @@
     <dimen name="progress_bar_height_large">8dp</dimen>
 
     <!-- Tab strip -->
-    <dimen name="tab_indicator_height">36dp</dimen>
-    <dimen name="tab_indicator_radius">18dp</dimen>
-    <!-- Inner breathing room between a tab label and the pill edge.
-         The pill hugs the measured text box, so this padding is what
-         keeps a label from sitting flush against the indicator. -->
-    <dimen name="tab_label_inset">18dp</dimen>
-    <dimen name="tab_bar_padding_horizontal">14dp</dimen>
-    <dimen name="tab_bar_padding_vertical">8dp</dimen>
+    <!-- Expressive nav bar pills are tall enough to hold a 24dp icon
+         beside its label, so the indicator grows from 36dp to 44dp
+         now that each destination carries an icon as well as text. -->
+    <dimen name="tab_indicator_height">44dp</dimen>
+    <dimen name="tab_indicator_radius">22dp</dimen>
+    <!--
+        Inner breathing room between a tab label and the pill edge. The pill
+        hugs the measured text box, so this padding is what keeps a label
+        from sitting flush against the indicator.
+
+        Kept small: in the bottom bar each destination only gets about
+        117dp at 411dp wide, and icon plus label plus this inset has to fit
+        inside it or the label gets ellipsised.
+    -->
+    <dimen name="tab_label_inset">6dp</dimen>
+    <dimen name="tab_bar_padding_horizontal">10dp</dimen>
+    <dimen name="tab_bar_padding_vertical">6dp</dimen>
+
+    <!-- Bottom destination bar (M3 Expressive navigation bar) -->
+    <dimen name="nav_bar_height">64dp</dimen>
+    <dimen name="nav_bar_corner_radius">32dp</dimen>
+    <dimen name="nav_bar_margin_horizontal">16dp</dimen>
+    <dimen name="nav_bar_margin_bottom">12dp</dimen>
 
     <!-- Legacy -->
     <dimen name="material_divider_inset">72dp</dimen>

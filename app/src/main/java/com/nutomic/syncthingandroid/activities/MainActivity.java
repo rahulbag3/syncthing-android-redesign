@@ -18,7 +18,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -322,6 +327,7 @@ public class MainActivity extends SyncthingActivity
                 }
             }
         };
+
         try {
             mViewPager.setAdapter(mSectionsPagerAdapter);
         } catch (IllegalStateException e) {
@@ -339,7 +345,114 @@ public class MainActivity extends SyncthingActivity
         }
         TabLayout tabLayout = findViewById(R.id.tabContainer);
         tabLayout.setupWithViewPager(mViewPager);
+        applyTabContent(tabLayout);
+        updateTabContentColors(tabLayout);
+        // Custom tab views do not repaint themselves on selection, so the
+        // active/inactive colours are refreshed whenever it changes.
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                updateTabContentColors(tabLayout);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                updateTabContentColors(tabLayout);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // No-op, but required by the interface.
+            }
+        });
+        applyNavBarInsets();
     }
+
+    /**
+     * Inflates a custom view per destination so the icon sits beside its
+     * label inside the selection pill. TabLayout's own tabIcon stacks the
+     * icon above the text, which leaves the icon outside the pill; a custom
+     * view is measured as one unit, so the indicator encloses both.
+     *
+     * PagerAdapter has no icon hook in the Views library, so titles and
+     * icons are bound here after setupWithViewPager.
+     */
+    private void applyTabContent(TabLayout tabLayout) {
+        int[] icons = {
+                R.drawable.baseline_folder_24,
+                R.drawable.baseline_smartphone_24,
+                R.drawable.baseline_wifi_24,
+        };
+        int[] labels = {
+                R.string.folders_fragment_title,
+                R.string.devices_fragment_title,
+                R.string.status_fragment_title,
+        };
+        for (int i = 0; i < labels.length && i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if (tab == null) {
+                continue;
+            }
+            View content = LayoutInflater.from(this)
+                    .inflate(R.layout.view_main_tab, tabLayout, false);
+            ((ImageView) content.findViewById(R.id.tab_icon))
+                    .setImageResource(icons[i]);
+            ((TextView) content.findViewById(R.id.tab_text))
+                    .setText(labels[i]);
+            tab.setCustomView(content);
+        }
+    }
+
+    /**
+     * Repaints tab icon and label colours to match the current selection.
+     *
+     * The custom tab view is not driven by tabTextColor/tabIconTint, so it
+     * needs its own colours. Tinting it from a layout colour selector does
+     * not work either: TabLayout marks "selected" on its own TabView parent,
+     * and a child custom view never inherits that state, so a selector keyed
+     * on state_selected silently resolves to the inactive colour. That left
+     * the active label painting on_surface_variant on top of the
+     * primary_container pill, which is near unreadable in dark mode.
+     *
+     * Resolving the colours here against an explicit selected state keeps the
+     * active tab legible in both light and dark themes.
+     */
+    private void updateTabContentColors(TabLayout tabLayout) {
+        int selectedColor = ContextCompat.getColor(this, R.color.on_primary_container);
+        int unselectedColor = ContextCompat.getColor(this, R.color.on_surface_variant);
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if (tab == null || tab.getCustomView() == null) {
+                continue;
+            }
+            int color = tab.isSelected() ? selectedColor : unselectedColor;
+            View content = tab.getCustomView();
+            ((ImageView) content.findViewById(R.id.tab_icon)).setColorFilter(color);
+            ((TextView) content.findViewById(R.id.tab_text)).setTextColor(color);
+        }
+    }
+
+    /**
+     * Applies the bottom bar's bottom inset.
+     *
+     * The activity draws edge to edge, so without this the floating nav bar
+     * would sit underneath the system navigation bar and its touch targets
+     * would be partially unreachable.
+     */
+    private void applyNavBarInsets() {
+        View navBar = findViewById(R.id.navBarContainer);
+        int baseMargin = getResources().getDimensionPixelSize(R.dimen.nav_bar_margin_bottom);
+        ViewCompat.setOnApplyWindowInsetsListener(navBar, (view, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+            ViewGroup.MarginLayoutParams params =
+                    (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            params.bottomMargin = baseMargin + bars.bottom;
+            view.setLayoutParams(params);
+            return insets;
+        });
+    }
+
 
     @Override
     public void onPause() {
