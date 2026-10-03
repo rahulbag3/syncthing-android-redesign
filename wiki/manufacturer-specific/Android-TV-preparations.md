@@ -8,7 +8,7 @@ The following instructions to solve the problem by preparing the Android TV for 
 * Locate / Download Google platform-tools, navigate to folder where adb.exe resides. Open Command Prompt here
 * Type the following:
 
-    ${applicationId} = com.github.catfriend1.syncthingfork
+    ${applicationId} = com.rahulbag3.syncthingfork
 
 ```
     adb start-server

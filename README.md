@@ -1,15 +1,13 @@
-# Syncthing-Fork - A Syncthing Wrapper for Android
+# Syncthing-Fork Redesign - A Syncthing Wrapper for Android
 
 [![License: MPLv2](https://img.shields.io/badge/License-MPLv2-blue.svg)](https://opensource.org/licenses/MPL-2.0)
-<a href="https://github.com/researchxxl/syncthing-android/releases/latest" alt="GitHub release"><img src="https://img.shields.io/github/v/release/researchxxl/syncthing-android" /></a>
-<a href="https://tooomm.github.io/github-release-stats/?username=researchxxl&repository=syncthing-android" alt="GitHub Stats"><img src="https://img.shields.io/github/downloads/researchxxl/syncthing-android/total.svg" /></a>
-<a href="https://f-droid.org/packages/com.github.catfriend1.syncthingfork" alt="F-Droid release"><img src="https://img.shields.io/f-droid/v/com.github.catfriend1.syncthingfork.svg" /></a>
-<a href="https://fdroid-metrics.streamlit.app/package_details?package=com.github.catfriend1.syncthingfork"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Fkitswas%2Ffdroid-metrics-dashboard%2Fraw%2Frefs%2Fheads%2Fmain%2Fprocessed%2Fmonthly%2Fcom.github.catfriend1.syncthingfork.json&query=%24.total_downloads&style=for-the-badge&logo=fdroid&label=F-Droid%20%F0%9F%93%A5%20last%20month" height="22" /></a>
-<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22com.github.catfriend1.syncthingfork%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Fresearchxxl%2Fsyncthing-android%22%2C%22author%22%3A%22researchxxl%22%2C%22name%22%3A%22Syncthing-Fork%22%2C%22preferredApkIndex%22%3A0%2C%22additionalSettings%22%3A%22%7B%5C%22verifyLatestTag%5C%22%3Atrue%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22com.github.catfriend1.syncthingfork%5C%22%7D%22%2C%22overrideSource%22%3Anull%7D"><img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" height="22"></a>
+<a href="https://github.com/rahulbag3/syncthing-android-redesign/releases/latest" alt="GitHub release"><img src="https://img.shields.io/github/v/release/rahulbag3/syncthing-android-redesign" /></a>
+<a href="https://tooomm.github.io/github-release-stats/?username=rahulbag3&repository=syncthing-android-redesign" alt="GitHub Stats"><img src="https://img.shields.io/github/downloads/rahulbag3/syncthing-android-redesign/total.svg" /></a>
+<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7b%22id%22%3a%22com.rahulbag3.syncthingfork%22%2c%22url%22%3a%22https%3a%2f%2fgithub.com%2frahulbag3%2fsyncthing-android-redesign%22%2c%22author%22%3a%22rahulbag3%22%2c%22name%22%3a%22Syncthing-Fork+Redesign%22%2c%22preferredApkIndex%22%3a0%2c%22additionalSettings%22%3a%7b%22verifyLatestTag%22%3atrue%2c%22apkFilterRegEx%22%3a%22com.rahulbag3.syncthingfork%22%7d%2c%22overrideSource%22%3anull%7d"><img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" height="22"></a>
 <a href="https://hosted.weblate.org/projects/syncthing-fork/app/"><img src="https://hosted.weblate.org/widget/syncthing-fork/app/svg-badge.svg" alt="Translation status" /></a>
-[![Build App](https://github.com/researchxxl/syncthing-android/actions/workflows/build-app.yaml/badge.svg)](https://github.com/researchxxl/syncthing-android/actions/workflows/build-app.yaml)
+[![Build App](https://github.com/rahulbag3/syncthing-android-redesign/actions/workflows/build-app.yaml/badge.svg)](https://github.com/rahulbag3/syncthing-android-redesign/actions/workflows/build-app.yaml)
 
-A wrapper of [Syncthing](https://github.com/syncthing/syncthing) for Android. Head to the "releases" section or F-Droid for builds. Please seek help on the forum and/or social media apps first before creating issues on the tracker.
+A wrapper of [Syncthing](https://github.com/syncthing/syncthing) for Android, with a Material 3 Expressive interface redesign. Head to the "releases" section for builds. Please seek help on the forum and/or social media apps first before creating issues on the tracker.
 
 <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/1.png" alt="screenshot 1" width="200" /> · <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/2.png" alt="screenshot 2" width="200" /> · <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/4.png" alt="screenshot 3" width="200" />
 
@@ -27,13 +25,21 @@ See [detailed info](wiki/developers/Building-and-Development.md).
 
 ## Acknowledgments
 
-This project was forked from [syncthing/syncthing-android](https://github.com/syncthing/syncthing-android).
+This project is a fork of [syncthing/syncthing-android](https://github.com/syncthing/syncthing-android), which is in turn a continuation of [Catfriend1/syncthing-android](https://github.com/Catfriend1/syncthing-android) and the [Syncthing-Fork](https://github.com/researchxxl/syncthing-android) project. The redesign in this repository builds directly on that lineage.
 
-Special thanks to the former maintainers:
+Special thanks to the former maintainers and contributors, without whom none of this would exist:
 
-- [Catfriend1](https://github.com/Catfriend1)
-- [imsodin](https://github.com/imsodin)
-- [nutomic](https://github.com/nutomic)
+- [Catfriend1](https://github.com/Catfriend1) - created and maintained the Syncthing-Fork app for many years
+- [researchxxl](https://github.com/researchxxl) - current maintainer of Syncthing-Fork, from which this redesign descends
+- [imsodin](https://github.com/imsodin) - former maintainer of syncthing-android
+- [nutomic](https://github.com/nutomic) (Felix Ableitner) - author of syncthing-android
+- [zillode](https://github.com/zillode) (Lode Hoste) - long-time Syncthing Android contributor
+- [André Colomb](https://github.com/AndreColomb) - translations and tooling
+- [Audrius Butkevicius](https://github.com/audriusb) - Syncthing Android contributions
+- [George Venios](https://github.com/GeorgeVenios) - Syncthing Android contributions
+- The [Syncthing](https://github.com/syncthing/syncthing) project itself, and everyone who has filed issues, sent patches, or translated the app
+
+Thanks also to the Material 3 Expressive guidance that shaped the redesign, and to everyone who has reported bugs against these builds.
 
 ## Privacy Policy
 
@@ -47,6 +53,4 @@ The project is licensed under [MPLv2](LICENSE).
 
 They extend use cases of our app or depend on our app. You might be curious to check their readme.
 
-- [DecSync CC](https://f-droid.org/packages/org.decsync.cc/) - "Sync contacts, calendars and tasks without a server using DecSync"
-- [Flym DecSync](https://f-droid.org/packages/org.decsync.flym/) - "Sync RSS without a server using DecSync"
 - [SleepSync](https://github.com/Baggio94/SleepSync) - "Pause Syncthing-Fork when your Android device sleeps and automatically resume it when the screen wakes."

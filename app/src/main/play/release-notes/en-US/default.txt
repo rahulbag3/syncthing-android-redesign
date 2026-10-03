@@ -1,0 +1,35 @@
+Syncthing-Fork Redesign 2.1.6.0
+
+A Material 3 Expressive redesign of the Syncthing-Fork interface for Android.
+
+Highlights
+
+- New bottom navigation bar with FOLDERS / DEVICES / STATUS destinations,
+  built on Material 3 Expressive shape and motion guidance.
+- Redesigned service status surface with clearer run-condition messaging and
+  RAM, upload and download figures.
+- Expressive pill tabs and card-based folder and device lists throughout.
+- System bar icon appearance now follows the surface behind them.
+
+Upgrading
+
+This release ships under a new application ID (com.rahulbag3.syncthingfork),
+so it installs alongside the upstream Syncthing-Fork app rather than replacing
+it. Existing users of the upstream app do not need to uninstall it, but the two
+apps store their configuration separately.
+
+Because the application ID changed, the custom RECEIVE_SYNC_STATUS permission
+and the FOLLOW / START / STOP broadcast actions have new names. Apps that listen
+for folder sync completion broadcasts need to declare
+com.rahulbag3.syncthingfork.permission.RECEIVE_SYNC_STATUS instead.
+
+Known limitations
+
+- Large font scales are not yet regression tested on the bottom navigation bar.
+- Verified on arm64-v8a, armeabi-v7a, x86 and x86_64.
+
+Thanks
+
+This project is a fork of syncthing/syncthing-android, via Catfriend1's
+Syncthing-Fork and researchxxl's Syncthing-Fork. See the Acknowledgments
+section of the README for the full list of people whose work this builds on.

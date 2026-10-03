@@ -20,7 +20,10 @@ jobs:
   prepare:
     name: Prepare
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'researchxxl'
+    # Was 'researchxxl' only, which made the job skip in this fork. A skipped
+    # dependency skips every downstream job, so build1, sign1 and release all
+    # silently did nothing and the dispatch appeared to succeed with no output.
+    if: github.repository_owner == 'researchxxl' || github.repository_owner == 'rahulbag3'
     steps:
       - name: Code checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -41,7 +44,7 @@ jobs:
     needs: prepare
     uses: ./.github/workflows/common-build.yaml
     with:
-      applicationId: "com.github.catfriend1.syncthingfork"
+      applicationId: "com.rahulbag3.syncthingfork"
       buildType: "Release"
       checkoutRef: ${{ github.event.inputs.tag }}
 
@@ -50,7 +53,7 @@ jobs:
     needs: [prepare, build1]
     uses: ./.github/workflows/common-sign.yaml
     with:
-      applicationId: "com.github.catfriend1.syncthingfork"
+      applicationId: "com.rahulbag3.syncthingfork"
       buildType: "release"
       environmentName: prod
     secrets: inherit
@@ -70,12 +73,12 @@ jobs:
       - name: "Download sign1"
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
-          name: signed-com.github.catfriend1.syncthingfork
+          name: signed-com.rahulbag3.syncthingfork
           path: ./artifacts
 
       - name: Create GitHub build provenance attestations
         uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
-        if: github.repository_owner == 'researchxxl'
+        if: github.repository_owner == 'researchxxl' || github.repository_owner == 'rahulbag3'
         with:
           subject-path: ./artifacts/*
 

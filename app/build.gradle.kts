@@ -58,7 +58,19 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.github.catfriend1.syncthingfork"
+        // Was com.github.catfriend1.syncthingfork, which is the upstream
+        // Syncthing-Fork ID and belongs to researchxxl. Using it here meant
+        // this fork's releases were indistinguishable from upstream's, and
+        // Obtainium configs pointing at that ID resolved to upstream's repo.
+        //
+        // Changing the applicationId changes the installed package name, so
+        // the app shows up as a separate install and existing users have to
+        // uninstall the old one first. It also moves the custom permission
+        // and the FOLLOW/START/STOP broadcast actions, which are declared in
+        // AndroidManifest.xml as ${applicationId} and so follow automatically.
+        // Third-party apps listening for sync-status broadcasts have to be
+        // updated to the new permission name.
+        applicationId = "com.rahulbag3.syncthingfork"
         minSdk = libs.versions.min.sdk.get().toInt()
         targetSdk = libs.versions.target.sdk.get().toInt()
         versionCode = libs.versions.version.code.get().toInt()
