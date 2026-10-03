@@ -9,7 +9,7 @@
 
 A wrapper of [Syncthing](https://github.com/syncthing/syncthing) for Android, with a Material 3 Expressive interface redesign. Head to the "releases" section for builds. Please seek help on the forum and/or social media apps first before creating issues on the tracker.
 
-<img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/1.png" alt="screenshot 1" width="200" /> · <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/2.png" alt="screenshot 2" width="200" /> · <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/4.png" alt="screenshot 3" width="200" />
+<img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/1-folders.png" alt="Folders tab" width="200" /> · <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/2-devices.png" alt="Devices tab" width="200" /> · <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/3-status.png" alt="Status tab" width="200" />
 
 ## Switching from the deprecated official version
 
