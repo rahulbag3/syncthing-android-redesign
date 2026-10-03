@@ -246,7 +246,11 @@ jobs:
             else 
                 ABI="_${ABI}"
             fi
-            UNSIGNED_APK_TARGET="${{ env.APPLICATION_ID }}_release_v${{ env.VERSION }}${ABI}.apk"
+            # The published file name is cosmetic only. It used to embed the
+            # applicationId, which put the maintainer's GitHub handle in every
+            # download URL. The installed package is unchanged by this; only
+            # the file on the release page is renamed.
+            UNSIGNED_APK_TARGET="Syncthing-Fork-${{ env.VERSION }}${ABI}.apk"
             echo "Renaming ${UNSIGNED_APK} to ${UNSIGNED_APK_TARGET}"
             mv "${UNSIGNED_APK}" "${UNSIGNED_APK_TARGET}"
           done
