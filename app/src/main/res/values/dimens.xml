@@ -41,42 +41,37 @@
         as the TabLayout's tabPaddingStart/tabPaddingEnd.
 
         These are what keep the selected pill off the bar's own edge. The bar
-        has a 32dp corner radius, so its rounded end curves inward well
+        has a 20dp corner radius, so its rounded end curves inward well
         before the bar ends; a pill that runs right up to the tab boundary
         ends up sitting on that curve and reads as clipped even though it is
         drawn completely.
 
         They are safe to grow because the bar uses tabGravity="fill", so each
         tab keeps an equal share of the bar and the insets come out of that
-        share rather than pushing the row wider. Measured in portrait, icon
-        plus label plus these insets is ~109dp against a ~126dp slot, so there
-        is still headroom before the three tabs would overflow.
+        share rather than pushing the row wider.
 
         Note the tab's own view_main_tab.xml carries a further 2dp of padding
         on each side; that is inside the slot, the value here is outside it.
 
-        Because each tab is an equal share but its content is a different
-        width, the pill wrapping that content does not land on the same offset
-        in every slot. At 420dpi the three pills measured 110.5dp wide with
-        left gaps of 12.2 / 138.7 / 265.1dp, where even spacing would be
-        10.4 / 132.9 / 255.4dp. The outer two therefore sit several dp further
-        out than the middle one, which is what reads as the highlight being
-        misaligned from button to button.
-
-        This value cannot grow much further. The bar is 379.4dp wide in
-        portrait, so each tab slot is (379.4 - 2 x this) / 3 and the 110.5dp
-        pill has to fit inside it with room to spare or the label truncates.
-        At 8dp there is 10.6dp of slack; at 16dp there is only 5.3dp and
-        STATUS visibly cut down to "STATU". Most of the visual gap at the ends
-        therefore comes from nav_bar_corner_radius, not from here.
+        This was 8dp, which put the pill within 8dp of the bar's right edge
+        once tab_bar_padding_horizontal stopped being honoured at the end.
+        The icon and the label have since both been trimmed, so 4dp keeps a
+        clear margin around the shorter STATUS pill without letting the
+        longer FOLDERS one crowd its neighbours.
     -->
-    <dimen name="tab_label_inset">8dp</dimen>
+    <dimen name="tab_label_inset">4dp</dimen>
     <!--
-        Outer inset of the TabLayout inside the rounded bar. Counts against
-        the same budget as tab_label_inset: TabLayout measures the tabs from
-        their content and only then clips to its own padded box, so this
-        value plus the label insets all eat into the room the last tab has
-        before the indicator starts getting cut off.
+        Outer inset of the TabLayout inside the rounded bar.
+
+        Applied as a margin on the TabLayout rather than padding on it.
+        TabLayout lays its fixed tabs out across its full measured width
+        and only then clips to its padded box, so paddingStart survived on
+        the left while paddingEnd was handed back to the tabs, leaving the
+        last pill flush with the bar's edge. A margin shrinks the layout
+        box itself so the inset is honoured on both ends.
+
+        8dp keeps the first and last pill clear of the bar's rounded ends
+        while leaving the three slots 121dp each to fit a ~96dp pill.
     -->
     <dimen name="tab_bar_padding_horizontal">8dp</dimen>
     <dimen name="tab_bar_padding_vertical">6dp</dimen>

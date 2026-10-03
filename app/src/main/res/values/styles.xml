@@ -198,12 +198,18 @@
          from tabPaddingStart/End on the TabLayout, not from here:
          TextAppearance only accepts colour/size/weight/tracking, so a
          padding item here would be silently ignored.
+
+         Tracking is 0.02, down from 0.05. Three all-caps labels share the
+         bar with their icons, and the extra tracking widened the pills
+         enough that the last one crowded the bar's right end. 0.02 keeps
+         the caps legible while trimming roughly 6dp off FOLDERS, the
+         longest label and therefore the widest pill.
          ============================================================ -->
     <style name="TextAppearance.Syncthing.TabLabel" parent="TextAppearance.AppCompat.Subhead">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:letterSpacing">0.05</item>
+        <item name="android:letterSpacing">0.02</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:maxLines">1</item>
         <item name="android:includeFontPadding">false</item>

@@ -53,6 +53,20 @@
             drawn as a rectangle that clips to the TabLayout bounds, which
             does not match the rounded indicator and flashes outside the
             pill. The elastic indicator animation carries the transition.
+
+            tab_bar_padding_horizontal is applied as a margin on the
+            TabLayout, not as padding on it. With tabMode="fixed" and
+            tabGravity="fill", TabLayout divides its own measured width
+            between the tabs and then clips the row to its padded box, so
+            the start padding survived but the end padding was effectively
+            given back to the tabs. Measured on a 1080x2400 screen at
+            420dpi, the bar spanned x 42..1037 and the three tabs took
+            995/3 = 331px each, running the last slot right up to the bar's
+            edge: the FOLDERS pill then had 16dp of clearance on the left
+            while the STATUS pill had only 8dp on the right, which read as
+            the highlight breaking out of the bar. A margin narrows the
+            TabLayout itself, so all three tabs are laid out inside the
+            inset box and both ends end up equal.
         -->
         <FrameLayout
             android:id="@+id/navBarContainer"
@@ -71,8 +85,8 @@
                 android:layout_height="@dimen/nav_bar_height"
                 android:background="@null"
                 android:theme="@style/ThemeOverlay.Syncthing.Toolbar"
-                android:paddingStart="@dimen/tab_bar_padding_horizontal"
-                android:paddingEnd="@dimen/tab_bar_padding_horizontal"
+                android:layout_marginStart="@dimen/tab_bar_padding_horizontal"
+                android:layout_marginEnd="@dimen/tab_bar_padding_horizontal"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
                 app:tabIndicator="@drawable/tab_indicator"
